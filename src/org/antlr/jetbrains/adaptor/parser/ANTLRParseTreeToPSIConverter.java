@@ -30,6 +30,7 @@ import java.util.Map;
  * for error message highlighting (error nodes don't have the info).
  */
 public class ANTLRParseTreeToPSIConverter implements ParseTreeListener {
+
     protected final Language language;
     protected final PsiBuilder builder;
     private Map<RecognitionException, SyntaxError> syntaxErrors;
@@ -167,8 +168,7 @@ public class ANTLRParseTreeToPSIConverter implements ParseTreeListener {
             if (error != null) {
                 marker.error(error.getMessage());
             } else {
-                // should not happen
-                marker.error("syntax error");
+                marker.done(getRuleElementTypes().get(ctx.getRuleIndex()));
             }
         } else {
             marker.done(getRuleElementTypes().get(ctx.getRuleIndex()));
